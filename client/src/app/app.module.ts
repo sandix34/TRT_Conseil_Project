@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ConnexionComponent } from './auth/connexion/connexion.component';
 import { InscriptionComponent } from './auth/inscription/inscription.component';
+import {LayoutModule} from "./shared/modules/layout.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InscriptionComponent } from './auth/inscription/inscription.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
