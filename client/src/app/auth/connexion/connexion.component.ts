@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-connexion',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConnexionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {
+  public connexionForm: FormGroup = this.fb.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required]
+  })
+
+  public error!: string;
+
+  public submit() {
+    console.log(this.connexionForm.getRawValue());
   }
+
+  ngOnInit(): void {}
 
 }
