@@ -17,9 +17,6 @@
             Veuillez renseigner un mot de passe.
           </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="error">
-          {{ error }}
-        </mat-error>
         <button mat-raised-button color="primary">Connexion</button>
       </form>
       <p>Form value: {{ connexionForm.value | json }}</p>
