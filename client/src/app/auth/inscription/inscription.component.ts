@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../shared/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-inscription',
@@ -13,12 +15,28 @@ export class InscriptionComponent implements OnInit {
     password: ['', Validators.required]
   })
 
-  constructor(private fb: FormBuilder) { }
+  public error!: string;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+) { }
 
   ngOnInit(): void {}
 
   public submit() {
-    console.log(this.inscriptionForm.getRawValue());
+    if (this.inscriptionForm.valid) {
+      this.authService.inscription(this.inscriptionForm.getRawValue()).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/connexion').then(() => {
+            console.log('redirection réussie');
+          })
+        },
+        error: (err) => {
+          this.error = err?.error || 'une erreur est survenue';
+        }
+      })
+    }
   }
-
 }
