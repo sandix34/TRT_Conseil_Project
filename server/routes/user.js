@@ -8,6 +8,7 @@ router.post('/', (req, res) => {
         email: req.body.email,
         name: req.body.name,
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8)),
+        role: req.body.role
     });
     newUser.save(err => {
         if (err) {
