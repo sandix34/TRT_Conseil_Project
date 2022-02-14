@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ConnexionComponent } from './auth/connexion/connexion.component';
 import { InscriptionComponent } from './auth/inscription/inscription.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -29,6 +30,7 @@ import { InscriptionComponent } from './auth/inscription/inscription.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     LayoutModule
   ],
   providers: [],
