@@ -19,6 +19,9 @@ const userSchema = new Schema({
         type: String,
         default: 'candidate',
         enum: ['candidate', 'recruiter', 'consultant', 'administrator']
+    },
+    accessToken: {
+        type: String
     }
 });
 
