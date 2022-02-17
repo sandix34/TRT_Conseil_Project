@@ -11,6 +11,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   public inscription(user: User): Observable<any> {
-    return this.http.post('/api/user', user);
+    return this.http.post('/api/user/signup', user);
   }
 }
