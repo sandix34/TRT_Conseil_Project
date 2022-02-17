@@ -8,9 +8,12 @@ async function hashPassword (password) {
    return  bcrypt.hashSync(password, 8);
 }
 
+async function validatePassword(plainPassword, hashedPassword) {
+    return await bcrypt.compareSync(plainPassword, hashedPassword);
+}
+
 exports.signup = async (req, res, next) => {
     try {
-        console.log(req.body);
         const newUser = new User({
             email: req.body.email,
             name: req.body.name,
@@ -29,7 +32,31 @@ exports.signup = async (req, res, next) => {
                 });
             }
         })
+        console.log(newUser);
     } catch (error) {
         next(error);
     }
 };
+
+exports.login = async (req, res, next) => {
+    try {
+        const {email, password} = req.body;
+
+        const user = await User.findOne({email});
+        if (!user) return next(new Error('password does not exist'));
+
+        const validPassword = await validatePassword(password, user.password);
+        if (!validPassword) return next(new Error('password is not correct'));
+
+        const accessToken = jwt.sign({userId: req.body._id.toString()}, secret, {expiresIn: "1d"}, {algorithm: "HS256"} );
+
+        await User.findByIdAndUpdate(user._id, {accessToken})
+        res.status(200).json({
+            data: { email: user.email, role: user.role},
+            accessToken
+        })
+        console.log(user);
+    } catch (error) {
+        next(error);
+    }
+}
